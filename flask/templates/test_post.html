@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+  <title>YES RGB</title>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+
+<body>
+  <!-- <h1>jQuery Color Picker: Farbtastic</h1> -->
+
+  <!-- <div id="demo" style="color: red; font-size: 1.4em">jQuery.js is not present. You must install jQuery in this folder for the demo to work.</div> -->
+
+  <button class="btn9">post</button>
+  <script>
+    $(document).ready(function () {
+      $(".btn9").click(function () {
+        $.post("/data", function (data, status) {alert(data.temperature)});
+      })
+    });
+  </script>
+</body>
+
+</html>

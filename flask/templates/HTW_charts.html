@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <!-- <script src="/static/echarts.js"></script> -->
+    <script type="text/javascript" src="/static/echarts.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 800px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+
+        var colors = ['#5793f3', '#d14a61', '#675bba'];
+
+        myChart.setOption({
+            color: colors,
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
+            },
+            grid: {
+                right: '20%'
+            },
+            toolbox: {
+                feature: {
+                    dataView: { show: true, readOnly: false },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            legend: {
+                data: ['温度', '湿度', '水位']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '温度',
+                    min: 0,
+                    max: 50,
+                    position: 'right',
+                    axisLine: {
+                        lineStyle: {
+                            color: colors[0]
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} °C'
+                    }
+                },
+                {
+                    type: 'value',
+                    name: '湿度',
+                    min: 0,
+                    max: 100,
+                    position: 'right',
+                    offset: 60,
+                    axisLine: {
+                        lineStyle: {
+                            color: colors[1]
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                },
+                {
+                    type: 'value',
+                    name: '土壤湿度',
+                    min: 0,
+                    max: 102400,
+                    position: 'right',
+                    offset: 120,
+                    axisLine: {
+                        lineStyle: {
+                            color: colors[1]
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} R'
+                    }
+                },
+                {
+                    type: 'value',
+                    name: '水位',
+                    min: 0,
+                    max: 2000,
+                    position: 'left',
+                    axisLine: {
+                        lineStyle: {
+                            color: colors[2]
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} R'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '温度',
+                    type: 'line',
+                    yAxisIndex: 0,
+                    data: []
+                },
+                {
+                    name: '湿度',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: []
+                },
+                {
+                    name: '土壤湿度',
+                    type: 'line',
+                    yAxisIndex: 2,
+                    data: []
+                },
+                {
+                    name: '水位',
+                    type: 'bar',
+                    yAxisIndex: 3,
+                    data: []
+                }
+            ]
+        });
+
+        $.post("/data", function (data, status) {
+            myChart.setOption({
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '温度',
+                        min: 0,
+                        max: 50,
+                        position: 'right',
+                        axisLine: {
+                            lineStyle: {
+                                color: colors[0]
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value} °C'
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '湿度',
+                        min: 0,
+                        max: 100,
+                        position: 'right',
+                        offset: 60,
+                        axisLine: {
+                            lineStyle: {
+                                color: colors[1]
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value} %'
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '土壤湿度',
+                        min: 0,
+                        max: 102400,
+                        position: 'right',
+                        offset: 120,
+                        axisLine: {
+                            lineStyle: {
+                                color: colors[1]
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value} R'
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '水位',
+                        min: 0,
+                        max: 2000,
+                        position: 'left',
+                        axisLine: {
+                            lineStyle: {
+                                color: colors[2]
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value} R'
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '温度',
+                        type: 'line',
+                        yAxisIndex: 0,
+                        data: data.temperature
+                    },
+                    {
+                        name: '湿度',
+                        type: 'line',
+                        data: data.humidity,
+                        yAxisIndex: 1,
+                    },
+                    {
+                        name: '土壤湿度',
+                        type: 'line',
+                        data: data.earth_humidity,
+                        yAxisIndex: 2,
+                    },
+                    {
+                        name: '水位',
+                        type: 'bar',
+                        yAxisIndex: 3,
+                        data: data.water_lever
+                    }
+                ]
+            });
+        })
+    </script>
+</body>
+
+</html>
