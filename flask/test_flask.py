@@ -10,6 +10,13 @@ app = Flask(__name__)
 ralay_gpio = 24
 ralay = 0
 
+MINUTE = 60
+HOUR = 60 * MINUTE
+HOUR2 = HOUR * 2
+DAY = 24 * HOUR
+WEEK = 7 * DAY 
+MONTH = 30 * DAY
+
 @app.route('/')
 def hello_world():
     return render_template("HTW_charts.html")
@@ -17,7 +24,7 @@ def hello_world():
 @app.route('/data', methods=['GET', 'POST'])
 def rtn_data():
     # d = config_json.get_data()
-    d = config_json_by_time.get_data_by_time_list()
+    d = config_json_by_time.get_data_by_time_list(MINUTE)
     return jsonify(d)
 
 if __name__ == '__main__':
