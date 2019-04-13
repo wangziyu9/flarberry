@@ -1,0 +1,12 @@
+Connection failed.
+
+SERVER [10.84.126.18:27017] (Type: UNKNOWN) 
+|_/ Connection error (MongoSocketOpenException): Exception opening socket
+|____/ Socket error: Connection refused: connect
+
+Details:
+Timed out after 5000 ms while waiting to connect. Client view of cluster state is {type=UNKNOWN, servers=[{address=10.84.126.18:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.ConnectException: Connection refused: connect}}]
+
+docker run -d --name rpi_mongodb -v /home/pi/data/db/mongo:/data/db -p 27017:27017 andresvidal/rpi3-mongodb3 mongod
+
+docker exec -it <CONTAINER NAME> mongo

@@ -1,27 +1,24 @@
 # encoding:utf-8
-
 import time
-
 from flask import Flask,render_template,request,jsonify
+# import ralay_switch
+import config_json_by_time
+import config_json
+# from gpiozero import LED
+
 app = Flask(__name__)
+ralay_gpio = 24
+ralay = 0
 
 @app.route('/')
 def hello_world():
-    return render_template("test.html")
+    return render_template("HTW_charts.html")
 
-@app.route('/color', methods=['GET', 'POST'])
-def pst():
-    if request.method == 'POST':
-        values = request.values.get("color", 0)
-
-        return "post baka" + values
-    else:
-        return "not post"
-
-@app.route('/mydict', methods=['GET', 'POST'])
-def mydict():
-    d = {'name': 'xmr', 'age': 18}
+@app.route('/data', methods=['GET', 'POST'])
+def rtn_data():
+    # d = config_json.get_data()
+    d = config_json_by_time.get_data_by_time_list()
     return jsonify(d)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', threaded=True) # debug = True)

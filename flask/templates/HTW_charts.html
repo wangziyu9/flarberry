@@ -144,6 +144,15 @@
 
         $.post("/data", function (data, status) {
             myChart.setOption({
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        data: data.time_str,
+                    }],
+
                 yAxis: [
                     {
                         type: 'value',
