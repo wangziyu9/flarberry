@@ -4,7 +4,7 @@ from flask import Flask,render_template,request,jsonify
 import ralay_switch
 import config_json_by_time
 import config_json
-# from gpiozero import LED
+from gpiozero import LED
 
 app = Flask(__name__)
 ralay_gpio = 24
@@ -49,7 +49,7 @@ def rtn_data():
 @app.route('/data/day', methods=['GET', 'POST'])
 def rtn_data_by_day():
     # d = config_json.get_data()
-    d = config_json_by_time.get_data_by_time_list(MINUTE)
+    d = config_json_by_time.get_data_by_time_list(DAY)
     return jsonify(d)
 
 if __name__ == '__main__':

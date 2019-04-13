@@ -24,6 +24,7 @@ data['time_str'] = time_str
 
 def find_data(time_stamp):
     d = {}
+    # 这里性能很差
     dht = db.HT.find({"time":{'$gt' : time_stamp}}).sort([("time",1)]).limit(1)
     dwl = db.WL.find({"time":{'$gt' : time_stamp}}).sort([("time",1)]).limit(1)
     deh = db.EH.find({"time":{'$gt' : time_stamp}}).sort([("time",1)]).limit(1)
