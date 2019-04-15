@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from gpiozero import LED
+=======
+# from gpiozero import LED
+>>>>>>> 9074a210041957080cca204d293ccf4c7ec9131c
 import time
 
 ralay_gpio = 24

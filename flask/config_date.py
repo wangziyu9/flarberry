@@ -8,7 +8,11 @@ DAY = 24 * HOUR
 WEEK = 7 * DAY 
 MONTH = 30 * DAY
 
+<<<<<<< HEAD
 def get_time_date(interval = DAY):
+=======
+def get_time_date(interval = HOUR2):
+>>>>>>> 9074a210041957080cca204d293ccf4c7ec9131c
     time_data = {}
     time_str = []
     time_stamp_list = [(time.time() - interval * x) for x in range(12)]

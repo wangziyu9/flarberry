@@ -19,6 +19,7 @@ MONTH = 30 * DAY
 
 @app.route('/')
 def hello_world():
+<<<<<<< HEAD
     return render_template("HTW_charts.1.html")
 
 
@@ -42,6 +43,14 @@ def rtn_data_by_day():
 @app.route('/data', methods=['GET', 'POST'])
 def rtn_data():
     d = config_json_by_time.get_last_data()
+=======
+    return render_template("HTW_charts.html")
+
+@app.route('/data', methods=['GET', 'POST'])
+def rtn_data():
+    # d = config_json.get_data()
+    d = config_json_by_time.get_data_by_time_list(MINUTE)
+>>>>>>> 9074a210041957080cca204d293ccf4c7ec9131c
     return jsonify(d)
 
 if __name__ == '__main__':
